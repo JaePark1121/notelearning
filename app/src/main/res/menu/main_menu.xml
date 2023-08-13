@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item android:id="@+id/vocab_list"
+        android:icon="@drawable/book"
+        android:title="Vocab List"
+        app:showAsAction="always">
+        <menu>
+            <item
+                android:id="@+id/summary"
+                android:icon="@drawable/exam"
+                android:title="Summary"
+                app:showAsAction = "ifRoom"
+                />
+            <item
+                android:id="@+id/action_menu3"
+                android:title="Important"
+                android:icon="@drawable/star"
+                app:showAsAction = "ifRoom"/>
+            <item
+                android:id="@+id/delete"
+                android:icon="@drawable/delete"
+                android:title="Delete"
+                app:showAsAction = "ifRoom"
+                />
+
+
+        </menu>
+    </item>
+
+</menu>

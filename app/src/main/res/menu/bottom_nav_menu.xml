@@ -1,0 +1,61 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+
+
+    <item
+        android:id="@+id/vocab_list"
+        android:enabled="true"
+        android:icon="@drawable/book"
+        android:title="Vocab List"
+        app:showAsAction="always"/>
+
+
+
+    <item
+        android:id="@+id/ummy1"
+        android:enabled="false"
+        android:icon="@drawable/transparent_dummy"
+        app:showAsAction="always"
+        android:title=""/>
+
+
+    <item
+        android:id="@+id/delete"
+        android:enabled="true"
+        android:icon="@drawable/delete"
+        android:title="Delete"
+        app:showAsAction="always"/>
+
+
+
+    <item
+        android:id="@+id/dumm1"
+        android:enabled="false"
+        android:icon="@drawable/transparent_dummy"
+        app:showAsAction="always"
+        android:title=""/>
+
+
+    <item
+        android:id="@+id/move_folder"
+        android:enabled="true"
+        android:icon="@drawable/move"
+        android:title="Move Folder"
+        app:showAsAction="always"/>
+
+    <item
+        android:id="@+id/umdmy1"
+        android:enabled="false"
+        android:icon="@drawable/transparent_dummy"
+        app:showAsAction="always"
+        android:title=""/>
+
+
+
+
+
+
+
+</menu>

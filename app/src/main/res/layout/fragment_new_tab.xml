@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/frameLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".NewTabFragment">
+
+    <EditText
+        android:id="@+id/new_tab_box"
+        android:layout_width="367dp"
+        android:layout_height="170dp"
+
+        android:layout_marginTop="50dp"
+        android:background="@drawable/notebook_default"
+        android:ems="10"
+        android:importantForAutofill="no"
+        android:inputType="textEmailAddress"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <TextView
+        android:id="@+id/add_tab_label"
+        android:layout_width="339dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="15dp"
+        android:text="Add New Tab"
+        android:textAlignment="center"
+        android:textColor="#000000"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/new_tab_box"
+        app:layout_constraintStart_toStartOf="@+id/new_tab_box"
+        app:layout_constraintTop_toTopOf="@+id/new_tab_box" />
+
+    <Button
+        android:id="@+id/new_tab_cancel"
+        android:layout_width="145dp"
+        android:layout_height="39dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        android:backgroundTint="#BEBEBE"
+        android:text="Cancel"
+        android:textSize="15sp"
+        app:layout_constraintStart_toStartOf="@+id/new_tab_box"
+        app:layout_constraintTop_toBottomOf="@+id/new_tab_title" />
+
+    <Button
+        android:id="@+id/new_tab_btn"
+        android:layout_width="145dp"
+        android:layout_height="38dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="20dp"
+        android:backgroundTint="#3498DB"
+        android:text="Add"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toEndOf="@+id/new_tab_box"
+        app:layout_constraintStart_toEndOf="@+id/new_tab_cancel"
+        app:layout_constraintTop_toBottomOf="@+id/new_tab_title" />
+
+    <EditText
+        android:id="@+id/new_tab_title"
+        android:layout_width="332dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="10dp"
+        android:ems="10"
+        android:hint="Add Title"
+        android:inputType="text"
+        app:layout_constraintEnd_toEndOf="@+id/new_tab_box"
+        app:layout_constraintStart_toStartOf="@+id/new_tab_box"
+        app:layout_constraintTop_toBottomOf="@+id/add_tab_label" />
+</androidx.constraintlayout.widget.ConstraintLayout>

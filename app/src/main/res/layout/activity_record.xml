@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff">
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/record_icon"
+        android:layout_width="180dp"
+        android:layout_height="180dp"
+        android:clickable="true"
+        android:fadingEdge="horizontal|vertical"
+        app:backgroundTint="#FFFFFF"
+        app:fabCustomSize="180dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/record_toolbar"
+        app:layout_constraintVertical_bias="0.094"
+        app:maxImageSize="130dp"
+        app:srcCompat="@drawable/mic"
+        app:tint="#61dfe3"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/record_start"
+        android:layout_width="90dp"
+        android:layout_height="90dp"
+        android:clickable="true"
+        android:fadingEdge="horizontal|vertical"
+        app:backgroundTint="#FFFFFF"
+        app:fabCustomSize="90dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/record_toolbar"
+        app:layout_constraintVertical_bias="0.463"
+        app:maxImageSize="50dp"
+        app:srcCompat="@drawable/main_btn"
+        app:tint="#61dfe3"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/record_reload"
+        android:layout_width="65dp"
+        android:layout_height="65dp"
+        android:clickable="true"
+        android:fadingEdge="horizontal|vertical"
+        app:backgroundTint="#FFFFFF"
+        app:fabCustomSize="70dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.173"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/record_toolbar"
+        app:layout_constraintVertical_bias="0.468"
+        app:maxImageSize="40dp"
+        app:srcCompat="@drawable/reload"
+        app:tint="#7F7F7F"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/record_finish"
+        android:layout_width="65dp"
+        android:layout_height="65dp"
+        android:clickable="true"
+        android:fadingEdge="horizontal|vertical"
+        app:backgroundTint="#FFFFFF"
+        app:fabCustomSize="70dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.821"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/record_toolbar"
+        app:layout_constraintVertical_bias="0.468"
+        app:maxImageSize="50dp"
+        app:srcCompat="@drawable/check"
+        app:tint="#7F7F7F"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/record_toolbar"
+        android:layout_width="412dp"
+        android:layout_height="0dp"
+        android:background="?attr/colorPrimary"
+        android:backgroundTint="#61DFE3"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/notebook_title_record"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="104dp"
+        android:layout_marginEnd="194dp"
+        android:text="Untitled Notebook"
+        android:textColor="#FFFFFF"
+        android:textSize="24sp"
+        android:background="@null"
+        app:layout_constraintBottom_toBottomOf="@+id/record_toolbar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.457" />
+
+    <ImageView
+        android:id="@+id/record_back"
+        android:layout_width="33dp"
+        android:layout_height="34dp"
+        android:layout_marginStart="27dp"
+        android:layout_marginEnd="351dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.022"
+        app:srcCompat="@drawable/back" />
+
+    <EditText
+        android:id="@+id/contents"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="448dp"
+        android:layout_weight="1"
+        android:background="@drawable/notebook_selected"
+        android:ems="10"
+        android:gravity="top"
+        android:hint="Content"
+        android:inputType="textMultiLine"
+        android:lines="8"
+        android:maxLines="100"
+        android:padding="5dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

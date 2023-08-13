@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/frameLayout3"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    tools:context=".ConfirmDeleteFragment" >
+
+    <EditText
+        android:id="@+id/confirm_delete_box"
+        android:layout_width="367dp"
+        android:layout_height="154dp"
+        android:layout_marginTop="256dp"
+
+        android:background="@drawable/memo_border"
+        android:ems="10"
+        android:importantForAutofill="no"
+        android:inputType="textEmailAddress"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.489"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <Button
+        android:id="@+id/confirm_back"
+        android:layout_width="145dp"
+        android:layout_height="38dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="12dp"
+        android:backgroundTint="#3498DB"
+        android:text="Confirm"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toEndOf="@+id/confirm_delete_box"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <Button
+        android:id="@+id/cancel_back"
+        android:layout_width="145dp"
+        android:layout_height="39dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="10dp"
+        android:backgroundTint="#BEBEBE"
+        android:text="Cancel"
+        android:textSize="15sp"
+        app:layout_constraintStart_toStartOf="@+id/confirm_delete_box"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <TextView
+        android:id="@+id/confirm_delete_label"
+        android:layout_width="339dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="32dp"
+        android:text="Are you sure you want to go back?"
+        android:textAlignment="center"
+        android:textColor="#000000"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/confirm_delete_box"
+        app:layout_constraintTop_toTopOf="@+id/confirm_delete_box" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="337dp"
+        android:layout_height="29dp"
+        android:text="All data will be lost"
+        android:textAlignment="center"
+        android:textColor="#717171"
+        app:layout_constraintEnd_toEndOf="@+id/confirm_delete_box"
+        app:layout_constraintStart_toStartOf="@+id/confirm_delete_box"
+        app:layout_constraintTop_toBottomOf="@+id/confirm_delete_label" />
+</androidx.constraintlayout.widget.ConstraintLayout>
