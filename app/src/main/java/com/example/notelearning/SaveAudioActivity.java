@@ -106,9 +106,10 @@ public class SaveAudioActivity extends AppCompatActivity {
                 Memos newMemo = new Memos(date, title, content, false, "", null);
                 DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
                 DatabaseReference memoReference;
-
+                System.out.println("CurrentTab: " + MainActivity.curTab);
                 if ("edit".equals(mode)) {
                     memoReference = mDatabase.child("Users").child(uid).child("folder").child(MainActivity.curTab).child("memos").child(memoId.get(0));
+                    memoReference.setValue(newMemo);
                     // Update the note in the Home tab as well
                     mDatabase.child("Users").child(uid).child("folder").child("Home").child("memos").child(memoId.get(0)).setValue(newMemo);
                 } else {
@@ -116,6 +117,7 @@ public class SaveAudioActivity extends AppCompatActivity {
                     newMemoKey = memoReference.getKey();
                     System.out.println();
                     mDatabase.child("Users").child(uid).child("folder").child("Home").child("memos").child(newMemoKey).setValue(newMemo);
+                    memoReference.setValue(newMemo);
                 }
                 //memoReference.setValue(newMemo);
 

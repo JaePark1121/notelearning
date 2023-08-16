@@ -8,16 +8,15 @@
     android:background="#ffffff"
     tools:context=".ConfirmDeleteFragment" >
 
-    <EditText
+    <TextView
         android:id="@+id/confirm_delete_box"
         android:layout_width="367dp"
         android:layout_height="154dp"
         android:layout_marginTop="256dp"
 
-        android:background="@drawable/memo_border"
+        android:background="@drawable/notebook_default"
         android:ems="10"
         android:importantForAutofill="no"
-        android:inputType="textEmailAddress"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.489"
         app:layout_constraintStart_toStartOf="parent"
