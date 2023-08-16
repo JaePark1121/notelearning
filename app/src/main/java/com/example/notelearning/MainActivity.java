@@ -69,7 +69,9 @@ public class MainActivity extends AppCompatActivity {
                             }
 
                         }
-                        refreshTabs();
+
+                        refreshTabs(curTab);
+
                     }
 
                     @Override
@@ -145,7 +147,8 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
-    public void refreshTabs() {
+    public void refreshTabs(String currentTab) {
+        TabLayout.Tab selectedTab = null;
         tabLayout.removeAllTabs();
         // Add default tabs
         tabLayout.addTab(tabLayout.newTab().setText("Home"));
@@ -165,6 +168,7 @@ public class MainActivity extends AppCompatActivity {
             if (!exists) {
                 tabLayout.addTab(tabLayout.newTab().setText(folderName));
             }
+
         }
         for (int i = 0; i < tabLayout.getTabCount(); i++) {
             // Unfortunately, you can't get the View directly, so you need to loop through the ViewGroup
@@ -175,14 +179,12 @@ public class MainActivity extends AppCompatActivity {
                 tabView.setOnLongClickListener(new View.OnLongClickListener() {
                     @Override
                     public boolean onLongClick(View v) {
-                        if (!curTab.equals("Home") && !curTab.equals("Bookmark")) {
+                        if (!MainActivity.curTab.equals("Home") && !MainActivity.curTab.equals("Bookmark")) {
 
                             transaction3 = getSupportFragmentManager().beginTransaction();
                             newFragment3 = new DeleteTabFragment();
                             transaction3.add(R.id.delete_tab_container, newFragment3);
                             transaction3.commit();
-
-
 
                         }
 
@@ -191,6 +193,17 @@ public class MainActivity extends AppCompatActivity {
                 });
             }
         }
+        for(int i = 0; i < tabLayout.getTabCount(); i++){
+            TabLayout.Tab tab = tabLayout.getTabAt(i);
+            if(tab.getText().toString().equals(currentTab)){
+                selectedTab = tab;
+            }
+        }
+
+
+       tabLayout.selectTab(selectedTab);
+
+
     }
 
 
