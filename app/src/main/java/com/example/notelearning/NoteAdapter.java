@@ -25,9 +25,12 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder> im
     private static void updateBookmarkInFirebase(String key, boolean isBookmarked) {
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
         DatabaseReference currentMemoRef = ref.child("Users").child(MainActivity.uid).child("folder").child(MainActivity.curTab).child("memos").child(key);
+        DatabaseReference currentMemoRefHome = ref.child("Users").child(MainActivity.uid).child("folder").child("Home").child("memos").child(key);
+
         DatabaseReference bookmarkMemoRef = ref.child("Users").child(MainActivity.uid).child("folder").child("Bookmark").child("memos").child(key);
 
         currentMemoRef.child("isBookmarked").setValue(isBookmarked);
+        currentMemoRefHome.child("isBookmarked").setValue(isBookmarked);
 
         if(isBookmarked) {
             currentMemoRef.addListenerForSingleValueEvent(new ValueEventListener() {
