@@ -94,8 +94,20 @@ public class MainRecyclerFragment extends Fragment{
                     return true;
                 }
                 else if (itemId == R.id.move_folder) {
-                    // Do something for "move_folder" selection
-                    return true;
+                   ChangeFolderFragment changeFolderFragment = new ChangeFolderFragment();
+                   FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
+                   transaction.replace(R.id.child_fragment_container, changeFolderFragment).commit();
+                   // Do something for "delete" selection
+                   changeFolderFragment.listener = new View.OnClickListener() {
+                       @Override
+                       public void onClick(View view) {
+                           FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
+                           transaction.remove(changeFolderFragment).commit();
+                       }
+                   };
+
+
+                   return true;
                 }
                 return false;
             }

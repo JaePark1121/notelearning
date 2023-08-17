@@ -114,7 +114,7 @@ public class RecordActivity extends AppCompatActivity {
                 if (!recording) {   //녹음 시작
                     finish.setVisibility(View.VISIBLE);
                     reload.setVisibility(View.VISIBLE);
-                    Toast.makeText(getApplicationContext(), "지금부터 음성으로 기록합니다.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Recording started.", Toast.LENGTH_SHORT).show();
                     StartRecord();
                 } else {  //이미 녹음 중이면 녹음 중지
                     StopRecord();
@@ -162,7 +162,7 @@ public class RecordActivity extends AppCompatActivity {
         recordBtn.setImageResource(R.drawable.play);
 
         speechRecognizer.stopListening();   //녹음 중지
-        Toast.makeText(getApplicationContext(), "음성 기록을 중지합니다.", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), "Recording stopped.", Toast.LENGTH_SHORT).show();
     }
 
     RecognitionListener listener = new RecognitionListener() {
@@ -197,20 +197,20 @@ public class RecordActivity extends AppCompatActivity {
             String message;
             switch (error) {
                 case SpeechRecognizer.ERROR_AUDIO:
-                    message = "오디오 에러";
+                    message = "Audio Error";
                     break;
                 case SpeechRecognizer.ERROR_CLIENT:
                     //message = "클라이언트 에러";
                     //speechRecognizer.stopListening()을 호출하면 발생하는 에러
                     return; //토스트 메세지 출력 X
                 case SpeechRecognizer.ERROR_INSUFFICIENT_PERMISSIONS:
-                    message = "퍼미션 없음";
+                    message = "Insufficient Permissions";
                     break;
                 case SpeechRecognizer.ERROR_NETWORK:
-                    message = "네트워크 에러";
+                    message = "Network Error";
                     break;
                 case SpeechRecognizer.ERROR_NETWORK_TIMEOUT:
-                    message = "네트웍 타임아웃";
+                    message = "Network Timeout";
                     break;
                 case SpeechRecognizer.ERROR_NO_MATCH:
                     //message = "찾을 수 없음";
@@ -220,19 +220,19 @@ public class RecordActivity extends AppCompatActivity {
                         StartRecord();
                     return; //토스트 메세지 출력 X
                 case SpeechRecognizer.ERROR_RECOGNIZER_BUSY:
-                    message = "RECOGNIZER가 바쁨";
+                    message = "RECOGNIZER가 Busy";
                     break;
                 case SpeechRecognizer.ERROR_SERVER:
-                    message = "서버가 이상함";
+                    message = "Server Error";
                     break;
                 case SpeechRecognizer.ERROR_SPEECH_TIMEOUT:
-                    message = "말하는 시간초과";
+                    message = "Speech Timeout";
                     break;
                 default:
-                    message = "알 수 없는 오류임";
+                    message = "Error Unknown";
                     break;
             }
-            Toast.makeText(getApplicationContext(), "에러가 발생하였습니다. : " + message, Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "Error occured. : " + message, Toast.LENGTH_SHORT).show();
         }
 
         //인식 결과가 준비되면 호출
