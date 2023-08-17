@@ -126,15 +126,15 @@ public class MainRecyclerFragment extends Fragment{
 
 
                 Intent intent = new Intent(getContext(), SaveAudioActivity.class);
-                ArrayList<String> memoUID = adapter.getSelectedMemoUIDs();
-                intent.putExtra("memoID", memoUID);
+                ArrayList<String> memoUID1 = new ArrayList<>();
+                memoUID1.add(NoteAdapter.noteKeys.get(position));
+                intent.putExtra("memoID", memoUID1);
                 intent.putExtra("title",item.getTitle());
                 intent.putExtra("mode", "edit");
                 startActivity(intent);
             }
             @Override
             public void onLongClick(){
-                //Toast.makeText(getContext(), "LONGCLICK", Toast.LENGTH_LONG).show();
                 toolbar.setVisibility(View.VISIBLE);
                 recordButton.setVisibility(View.INVISIBLE);
 

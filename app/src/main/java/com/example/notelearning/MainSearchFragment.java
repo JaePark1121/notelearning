@@ -2,6 +2,7 @@ package com.example.notelearning;
 
 import static com.example.notelearning.MainActivity.newFragment2;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -139,10 +140,24 @@ public class MainSearchFragment extends Fragment {
         // setting adapter to
         // our recycler view.
         searchRV.setAdapter(adapter);
+
+        adapter.setOnItemClickListener(new SearchAdapter.OnItemClickEventListener() {
+            @Override
+            public void onItemClick(View a_view, int a_position) {
+
+                Intent intent = new Intent(getContext(), SaveAudioActivity.class);
+                ArrayList<String> memoUID = new ArrayList<>();
+                memoUID.add(adapter.dataList.get(a_position));
+                intent.putExtra("memoID", memoUID);
+                System.out.println(memoUID);
+                intent.putExtra("title",searchArrayList.get(memoUID));
+                intent.putExtra("mode", "edit");
+                startActivity(intent);
+            }
+        });
     }
 
 
+
+
 }
-
-
-

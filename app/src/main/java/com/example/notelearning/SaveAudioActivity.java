@@ -83,10 +83,11 @@ public class SaveAudioActivity extends AppCompatActivity {
 
         String mode = getIntent().getStringExtra("mode");
          // This will be the memo's key if in edit mode
-        ArrayList<String> memoId = MainRecyclerFragment.adapter.getNoteKeys();
+        ArrayList<String> memoId = getIntent().getStringArrayListExtra("memoID");
+
 
         if ("edit".equals(mode)) {
-            fetchMemoFromFirebase(memoId.get(MainRecyclerFragment.uidIndex));  // Function to fetch and set data if in edit mode
+            fetchMemoFromFirebase(memoId.get(MainRecyclerFragment.uidIndex));
         } else if ("create".equals(mode)) {
             contentView.setText(getIntent().getStringExtra("content"));
             titleView.setText(getIntent().getStringExtra("title"));
@@ -324,7 +325,7 @@ public class SaveAudioActivity extends AppCompatActivity {
     private void fetchMemoFromFirebase(String memoId) {
         uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
-        DatabaseReference memoReference = mDatabase.child("Users").child(uid).child("folder").child(MainActivity.curTab).child("memos").child(memoId);
+        DatabaseReference memoReference = mDatabase.child("Users").child(uid).child("folder").child("Home").child("memos").child(memoId);
 
         memoReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override

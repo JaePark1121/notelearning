@@ -43,16 +43,6 @@ public class Folder {
     public ArrayList<Memos> getBookmarkedMemos() {
         return this.bookmarkedMemos;
     }
-    /*
-    private HashMap<String, Memos> filterBookmarkedMemos(HashMap<String,Memos> memos) {
-        HashMap<String, Memos> bookmarked = new HashMap<>();
-        for (Memos memo : memos) {
-            if (memo.getIsBookmarked()) {
-                bookmarked.put(memo.getTitle(), memo);
-            }
-        }
-        return bookmarked;
-    }
-    */
+
 
 }
