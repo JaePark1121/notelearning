@@ -96,6 +96,7 @@ public class VocabListActivity extends AppCompatActivity{
 
 
         if (memoId != null) {
+            System.out.println("memoID complete");
             vocabReference = FirebaseDatabase.getInstance().getReference("Users")
                     .child(currentUserUID)
                     .child("folder")
@@ -181,10 +182,12 @@ public class VocabListActivity extends AppCompatActivity{
     String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
     private void chatGPTVocab() {
+        System.out.println("Complete");
         Intent vocabIntent = getIntent();
         if(vocabIntent != null) {
             words = vocabIntent.getStringArrayListExtra("words"); // Assuming you're passing them as String ArrayLists
             definitions = vocabIntent.getStringArrayListExtra("definitions");
+
         }
 
         if(words != null) {

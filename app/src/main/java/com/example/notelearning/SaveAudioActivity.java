@@ -113,6 +113,7 @@ public class SaveAudioActivity extends AppCompatActivity {
                     memoReference.setValue(newMemo);
                     // Update the note in the Home tab as well
                     mDatabase.child("Users").child(uid).child("folder").child("Home").child("memos").child(memoId.get(0)).setValue(newMemo);
+                    newMemoKey = NoteAdapter.noteKeys.get(NoteAdapter.selected.get(0));
                 } else {
                     memoReference = mDatabase.child("Users").child(uid).child("folder").child(MainActivity.curTab).child("memos").push();
                     newMemoKey = memoReference.getKey();
@@ -380,11 +381,11 @@ public class SaveAudioActivity extends AppCompatActivity {
                                 httpConn.setRequestProperty("OpenAI-Organization", "org-EXTJqre865s2Io0thmu6CYHX");
                                 httpConn.setDoOutput(true);
 
-                                String message = "Make a vocab list from this note, separate the word and the " +
+                                String message = "Make a short vocab list of 5 words from this note, separate the word and the " +
                                         "definition with a colon and only use the colon once, don't number each word and don't " +
                                         "output anything else but the words and definitions. The vocab word you choose shouldn't " +
-                                        "be a phrase but should be a single word or a single term and don't use articles. For example, only respond in this" +
-                                        "kind of format 'Apple: A fruit.' If there is not enough notes, then respond: 'Error: Not enough Content.' This is the note:" + contentView.getText().toString();
+                                        "be a phrase but should be a single word or a single term and don't use articles. Strictly respond in this" +
+                                        "format 'Apple: A fruit.' This is the note:" + contentView.getText().toString();
                                 JSONObject payload = new JSONObject();
 
                                 payload.put("model", "gpt-3.5-turbo");
@@ -435,6 +436,8 @@ public class SaveAudioActivity extends AppCompatActivity {
                                         for (String entry : entries) {
                                             String[] parts = entry.split(":"); // Split each entry by colon
 
+                                            System.out.println("Parts: " + entry);
+
                                             if (parts.length == 2) {
                                                 words.add(parts[0].trim());
                                                 definitions.add(parts[1].trim());
@@ -466,8 +469,8 @@ public class SaveAudioActivity extends AppCompatActivity {
 
     private void onTaskComplete() {
         for (int i = 0; i < definitions.size(); i++) {
-            String a = definitions.get(i);
-            System.out.println(a);
+          //  String a = definitions.get(i);
+          //  System.out.println(a);
         }
         System.out.println("taskComplete: "+newMemoKey);
         SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
