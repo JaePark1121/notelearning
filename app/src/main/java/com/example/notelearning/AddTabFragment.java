@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
@@ -27,11 +28,17 @@ public class AddTabFragment extends Fragment {
             public void onClick(View view) {
                 String title = ((EditText)v.findViewById(R.id.new_tab_title)).getText().toString();
                 TabLayout tabLayout = (TabLayout) getActivity().findViewById(R.id.main_tabs);
-                tabLayout.addTab(tabLayout.newTab().setText(title));
+                if(!title.isEmpty()) {
+                    tabLayout.addTab(tabLayout.newTab().setText(title));
+                    DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+                    mDatabase.child("Users").child(MainActivity.uid).child("folder").child(title).setValue(new Folder(title));
+                }
+                else{
+                    Toast.makeText(getActivity(), "Tab Name cannot be blank", Toast.LENGTH_SHORT).show();
+                }
                 getActivity().getSupportFragmentManager().beginTransaction().remove(newFragment).commitAllowingStateLoss();
 
-                DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
-                mDatabase.child("Users").child(MainActivity.uid).child("folder").child(title).setValue(new Folder(title));
+
             }
         });
 

@@ -100,15 +100,12 @@
         android:id="@+id/notebook_title_record"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="104dp"
-        android:layout_marginEnd="194dp"
+        android:background="@null"
         android:text="Untitled Notebook"
         android:textColor="#FFFFFF"
         android:textSize="24sp"
-        android:background="@null"
         app:layout_constraintBottom_toBottomOf="@+id/record_toolbar"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.457" />
@@ -117,11 +114,9 @@
         android:id="@+id/record_back"
         android:layout_width="33dp"
         android:layout_height="34dp"
-        android:layout_marginStart="27dp"
-        android:layout_marginEnd="351dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.05"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.022"
@@ -131,7 +126,6 @@
         android:id="@+id/contents"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="448dp"
         android:layout_weight="1"
         android:background="@drawable/notebook_selected"
         android:ems="10"
@@ -141,10 +135,12 @@
         android:lines="8"
         android:maxLines="100"
         android:padding="5dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.85" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

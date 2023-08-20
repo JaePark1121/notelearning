@@ -10,9 +10,11 @@
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/main_tabs"
-        android:layout_width="374dp"
+        android:layout_width="0dp"
         android:layout_height="48dp"
         android:background="@color/white"
+        app:layout_constraintEnd_toStartOf="@+id/add_tab_btn"
+        app:layout_constraintHorizontal_bias="0.32"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/main_page_toolbar"
         app:tabMode="scrollable">
@@ -86,9 +88,10 @@
         android:id="@+id/search_icon"
         android:layout_width="30dp"
         android:layout_height="27dp"
-        android:layout_marginStart="288dp"
         android:layout_marginTop="20dp"
         android:importantForAccessibility="no"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.73"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/search" />
@@ -117,12 +120,11 @@
         android:layout_width="20dp"
         android:layout_height="20dp"
         android:layout_marginTop="15dp"
-        android:layout_marginEnd="5dp"
         android:background="@null"
         android:src="@drawable/plus"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.333"
-        app:layout_constraintStart_toEndOf="@+id/main_tabs"
+        app:layout_constraintHorizontal_bias="0.97"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/main_page_toolbar" />
 
     <androidx.fragment.app.FragmentContainerView

@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -20,7 +21,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class ChangeFolderFragment extends Fragment implements ChangeFolderAdapter.FolderClickListener{
+public class ChangeFolderFragment extends Fragment{
 
     private RecyclerView changeFolderRecyclerView;
     private ChangeFolderAdapter changeFolderAdapter;
@@ -35,7 +36,19 @@ public class ChangeFolderFragment extends Fragment implements ChangeFolderAdapte
         Button confirm = view.findViewById(R.id.change_folder_confirm);
         Button cancel = view.findViewById(R.id.change_folder_cancel);
         changeFolderRecyclerView = view.findViewById(R.id.change_folder_recycler);
-        changeFolderAdapter = new ChangeFolderAdapter(folderList, this);
+        changeFolderAdapter = new ChangeFolderAdapter(folderList, new ChangeFolderAdapter.OnItemClickEventListener() {
+            @Override
+            public void onItemClick(View view, int position, String folderName) {
+                if(ChangeFolderAdapter.selectedPosition == position){
+                    ChangeFolderAdapter.selectedPosition = -1;
+                }
+                else {
+                    ChangeFolderAdapter.selectedPosition = position;
+                    ChangeFolderAdapter.selectedFolderName = folderName;
+                }
+                changeFolderAdapter.notifyDataSetChanged();
+            }
+        });
         changeFolderRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         changeFolderRecyclerView.setAdapter(changeFolderAdapter);
 
@@ -49,20 +62,26 @@ public class ChangeFolderFragment extends Fragment implements ChangeFolderAdapte
                 DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
                 mDatabase.child("Users").child(MainActivity.uid).child("folder")
                         .child(MainActivity.curTab).child("memos").addListenerForSingleValueEvent(
+
                                 new ValueEventListener() {
 
                                     @Override
                                     public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                        ArrayList<String> deleteList = new ArrayList<>();
-                                        for(Integer pos:NoteAdapter.selected){
-                                            deleteList.add(NoteAdapter.noteKeys.get(pos));
-                                        }
-                                        NoteAdapter.selected.clear();
-                                        for(DataSnapshot ds: snapshot.getChildren()){
-                                            if(deleteList.contains(ds.getKey())){
-                                                ds.getRef().removeValue();
+                                        if(!MainActivity.curTab.equals("Home") && !MainActivity.curTab.equals("Bookmark")) {
+
+                                            for (DataSnapshot ds : snapshot.getChildren()) {
+                                                if (NoteAdapter.selectedMemoUIDs.contains(ds.getKey())) {
+                                                    mDatabase.child("Users").child(MainActivity.uid).child("folder")
+                                                            .child(ChangeFolderAdapter.selectedFolderName).child("memos").child(ds.getKey()).setValue(ds.getValue());
+
+                                                    ds.getRef().removeValue();
+                                                }
                                             }
                                         }
+                                        else{
+                                            Toast.makeText(getActivity(), "Cannot Change Folder from " + MainActivity.curTab, Toast.LENGTH_SHORT).show();
+                                        }
+
                                         cancel.callOnClick();
                                     }
 
@@ -95,7 +114,9 @@ public class ChangeFolderFragment extends Fragment implements ChangeFolderAdapte
                         folderList.clear();
                         for (DataSnapshot folderSnapshot : dataSnapshot.getChildren()) {
                             String folderName = folderSnapshot.getKey();
-                            folderList.add(folderName);
+                            if(!folderName.equals("Home") && !folderName.equals("Bookmark") ) {
+                                folderList.add(folderName);
+                            }
                         }
                         changeFolderAdapter.notifyDataSetChanged();
                     }
@@ -108,9 +129,6 @@ public class ChangeFolderFragment extends Fragment implements ChangeFolderAdapte
     }
 
 
-    @Override
-    public void onFolderClick(String folderName) {
 
-    }
 }
 

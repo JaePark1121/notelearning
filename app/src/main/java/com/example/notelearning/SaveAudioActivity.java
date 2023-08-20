@@ -384,7 +384,7 @@ public class SaveAudioActivity extends AppCompatActivity {
                                         "definition with a colon and only use the colon once, don't number each word and don't " +
                                         "output anything else but the words and definitions. The vocab word you choose shouldn't " +
                                         "be a phrase but should be a single word or a single term and don't use articles. For example, only respond in this" +
-                                        "kind of format 'Apple: A fruit.' This is the note:" + contentView.getText().toString();
+                                        "kind of format 'Apple: A fruit.' If there is not enough notes, then respond: 'Error: Not enough Content.' This is the note:" + contentView.getText().toString();
                                 JSONObject payload = new JSONObject();
 
                                 payload.put("model", "gpt-3.5-turbo");

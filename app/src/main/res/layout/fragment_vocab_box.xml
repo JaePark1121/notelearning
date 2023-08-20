@@ -40,19 +40,22 @@
             android:ellipsize="end"
             android:maxLines="1"
             android:textSize="20sp"
-            app:layout_constraintEnd_toStartOf="@+id/vocab_box_menu"
+            app:layout_constraintEnd_toStartOf="@+id/vocab_box_delete"
             app:layout_constraintStart_toStartOf="@+id/word_label"
             app:layout_constraintTop_toBottomOf="@+id/word_label" />
 
         <!-- Vocab Box Menu (dots) -->
         <ImageView
-            android:id="@+id/vocab_box_menu"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
+            android:id="@+id/vocab_box_delete"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginTop="5dp"
             android:layout_marginEnd="16dp"
+            android:clickable="true"
+            android:focusable="true"
             app:layout_constraintEnd_toEndOf="@+id/vocab_box"
             app:layout_constraintTop_toTopOf="@+id/vocab_box"
-            app:srcCompat="@drawable/dots" />
+            app:srcCompat="@drawable/delete" />
 
         <!-- Definition Label -->
         <TextView

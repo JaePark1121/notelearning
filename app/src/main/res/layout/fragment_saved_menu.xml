@@ -11,7 +11,7 @@
     <EditText
         android:id="@+id/audio_menu_box"
         android:layout_width="161dp"
-        android:layout_height="240dp"
+        android:layout_height="180dp"
 
         android:background="@drawable/memo_border"
         android:ems="10"
@@ -62,27 +62,27 @@
         android:id="@+id/delete_label"
         android:layout_width="81dp"
         android:layout_height="22dp"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="84dp"
+        android:layout_marginTop="32dp"
         android:text="Delete"
         android:textAlignment="center"
         android:textColor="#000000"
         android:textSize="16sp"
-        app:layout_constraintStart_toEndOf="@+id/delete_icon"
+        app:layout_constraintEnd_toEndOf="@+id/frameLayout2"
+        app:layout_constraintHorizontal_bias="0.83"
+        app:layout_constraintStart_toStartOf="@+id/frameLayout2"
         app:layout_constraintTop_toBottomOf="@+id/summary_label" />
 
-    <TextView
-        android:id="@+id/important_label2"
-        android:layout_width="81dp"
-        android:layout_height="22dp"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="32dp"
-        android:text="Important"
-        android:textAlignment="center"
-        android:textColor="#000000"
-        android:textSize="16sp"
-        app:layout_constraintStart_toEndOf="@+id/important_icon"
-        app:layout_constraintTop_toBottomOf="@+id/summary_label" />
+    <ImageView
+        android:id="@+id/delete_icon"
+        android:layout_width="41dp"
+        android:layout_height="39dp"
+        android:layout_marginStart="11dp"
+        android:layout_marginTop="16dp"
+        android:src="@drawable/delete"
+
+
+        app:layout_constraintStart_toStartOf="@+id/audio_menu_box"
+        app:layout_constraintTop_toBottomOf="@+id/summary_icon" />
 
     <ImageView
         android:id="@+id/summary_icon"
@@ -93,26 +93,6 @@
         android:src="@drawable/exam"
         app:layout_constraintStart_toStartOf="@+id/audio_menu_box"
         app:layout_constraintTop_toBottomOf="@+id/vocabList_icon" />
-
-    <ImageView
-        android:id="@+id/important_icon"
-        android:layout_width="41dp"
-        android:layout_height="38dp"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="16dp"
-        android:src="@drawable/star"
-        app:layout_constraintStart_toStartOf="@+id/audio_menu_box"
-        app:layout_constraintTop_toBottomOf="@+id/summary_icon" />
-
-    <ImageView
-        android:id="@+id/delete_icon"
-        android:layout_width="41dp"
-        android:layout_height="39dp"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="16dp"
-        android:src="@drawable/delete"
-        app:layout_constraintStart_toStartOf="@+id/audio_menu_box"
-        app:layout_constraintTop_toBottomOf="@+id/important_icon" />
 
     <Button
         android:id="@+id/vocab_button"
@@ -137,24 +117,13 @@
         app:layout_constraintTop_toBottomOf="@+id/vocab_button" />
 
     <Button
-        android:id="@+id/important_button"
-        android:layout_width="160dp"
-        android:layout_height="55dp"
-
-        android:background="#00FFFFFF"
-        app:layout_constraintEnd_toEndOf="@+id/audio_menu_box"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/audio_menu_box"
-        app:layout_constraintTop_toBottomOf="@+id/summary_button" />
-
-    <Button
         android:id="@+id/delete_button"
         android:layout_width="160dp"
         android:layout_height="55dp"
 
         android:background="#00FFFFFF"
-        app:layout_constraintEnd_toEndOf="@+id/audio_menu_box"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/audio_menu_box"
-        app:layout_constraintTop_toBottomOf="@+id/important_button" />
+        app:layout_constraintEnd_toEndOf="@+id/frameLayout2"
+        app:layout_constraintHorizontal_bias="0.85"
+        app:layout_constraintStart_toStartOf="@+id/frameLayout2"
+        app:layout_constraintTop_toBottomOf="@+id/summary_button" />
 </androidx.constraintlayout.widget.ConstraintLayout>

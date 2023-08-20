@@ -24,28 +24,30 @@
         android:id="@+id/save_notebook_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="64dp"
         android:background="@null"
         android:text="Untitled Notebook"
         android:textAlignment="center"
         android:textColor="#FFFFFF"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="@+id/main_page_toolbar"
+        app:layout_constraintEnd_toEndOf="@+id/main_page_toolbar"
+        app:layout_constraintHorizontal_bias="0.23"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.606" />
+        app:layout_constraintVertical_bias="0.4" />
 
     <TextView
         android:id="@+id/save_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="345dp"
         android:text="SAVE"
         android:textAlignment="viewEnd"
         android:textColor="#FFFFFF"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/main_page_toolbar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.94"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.571" />
@@ -55,22 +57,24 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintEnd_toStartOf="@+id/save_notebook_title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.04"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/back" />
 
     <EditText
         android:id="@+id/save_audio_notes"
-        android:layout_width="411dp"
-        android:layout_height="660dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
 
 
         android:background="@drawable/memo_border"
+        android:gravity="top|start"
         android:scrollbars="vertical"
         android:text="Notes..."
         android:textAlignment="textStart"
-        android:gravity="top|start"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -78,40 +82,41 @@
 
     <TextView
         android:id="@+id/save_notes_date"
-        android:layout_width="80dp"
-        android:layout_height="20dp"
+        android:layout_width="70dp"
+        android:layout_height="wrap_content"
         android:background="@null"
         android:ems="10"
         android:inputType="text"
         android:text="07/30/2023"
         android:textAlignment="center"
         android:textColor="#FFFFFF"
-        android:textSize="12sp"
-        app:layout_constraintBottom_toBottomOf="@+id/main_page_toolbar"
-        app:layout_constraintEnd_toStartOf="@+id/saved_home2"
-        app:layout_constraintHorizontal_bias="0.442"
-        app:layout_constraintStart_toEndOf="@+id/save_notebook_title"
-        app:layout_constraintTop_toTopOf="@+id/main_page_toolbar"
-        app:layout_constraintVertical_bias="0.606" />
+        android:textSize="10sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.18"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/save_notebook_title"
+        tools:layout_editor_absoluteY="53dp" />
 
     <ImageView
         android:id="@+id/saved_menu2"
         android:layout_width="30dp"
         android:layout_height="27dp"
         android:layout_marginTop="20dp"
-        android:layout_marginEnd="16dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.91"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/toolbar_dots" />
 
     <ImageView
         android:id="@+id/saved_home2"
-        android:layout_width="30dp"
+        android:layout_width="32dp"
         android:layout_height="27dp"
         android:layout_marginTop="20dp"
-        android:layout_marginEnd="30dp"
         android:importantForAccessibility="no"
-        app:layout_constraintEnd_toStartOf="@+id/saved_menu2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.79"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/home" />
 

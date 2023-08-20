@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/notebook_box1"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginTop="20dp">
 
@@ -11,10 +11,9 @@
         android:id="@+id/notebook_box"
         android:layout_width="310dp"
         android:layout_height="74dp"
-        android:layout_marginStart="34dp"
-        android:layout_marginEnd="64dp"
         android:background="@drawable/notebook_default"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.4"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -22,13 +21,12 @@
         android:id="@+id/bookmark_btn"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
         android:background="?android:attr/selectableItemBackground"
         android:src="@drawable/ribbon"
         app:layout_constraintBottom_toBottomOf="@+id/notebook_box"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/notebook_box"
+        app:layout_constraintHorizontal_bias="0.94"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/notebook_box" />
 
 

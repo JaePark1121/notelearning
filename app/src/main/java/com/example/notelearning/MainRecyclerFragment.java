@@ -97,7 +97,6 @@ public class MainRecyclerFragment extends Fragment{
                    ChangeFolderFragment changeFolderFragment = new ChangeFolderFragment();
                    FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
                    transaction.replace(R.id.child_fragment_container, changeFolderFragment).commit();
-                   // Do something for "delete" selection
                    changeFolderFragment.listener = new View.OnClickListener() {
                        @Override
                        public void onClick(View view) {

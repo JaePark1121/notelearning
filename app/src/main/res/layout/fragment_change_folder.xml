@@ -87,4 +87,5 @@
         app:layout_constraintHorizontal_bias="0.507"
         app:layout_constraintStart_toStartOf="@+id/change_folder_box"
         app:layout_constraintTop_toBottomOf="@+id/change_folder_subtitle" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

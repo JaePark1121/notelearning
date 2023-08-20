@@ -1,5 +1,7 @@
 package com.example.notelearning;
 
+import static com.example.notelearning.VocabAdapter.context;
+
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -28,14 +30,17 @@ public class VocabListActivity extends AppCompatActivity{
     public static ArrayList<String> memoUID = new ArrayList<>();
 
     private FragmentTransaction transaction;
+    private FragmentTransaction transaction1;
     public static AddVocabFragment addVocabFragment;
+
+    public static DeleteVocabFragment deleteVocabFragment;
 
     private RecyclerView vocabRecyclerView;
     private VocabAdapter vocabAdapter;
 
     private FirebaseAuth mAuth;
     private FirebaseDatabase database;
-    private DatabaseReference vocabReference;
+    static DatabaseReference vocabReference;
     private String currentUserUID;
 
     private ArrayList<String> words = new ArrayList<>();
@@ -44,6 +49,9 @@ public class VocabListActivity extends AppCompatActivity{
     static String memoId = "";
 
     static int uidIndex = 0;
+
+    public static DeleteVocabFragment newFragment;
+
 
 
 
@@ -141,7 +149,17 @@ public class VocabListActivity extends AppCompatActivity{
                     words.add(new Vocab(word, definition));
                 }
 
-                vocabAdapter = new VocabAdapter(words);
+                vocabAdapter = new VocabAdapter(words, new VocabAdapter.OnDeleteButtonClickListener() {
+                    @Override
+                    public void onDeleteButtonClick() {
+
+
+                        transaction1 = getSupportFragmentManager().beginTransaction();
+                        deleteVocabFragment = new DeleteVocabFragment();
+                        transaction1.add(R.id.deleteVocabContainer, deleteVocabFragment);
+                        transaction1.commit();
+                    }
+                });
                 vocabRecyclerView.setAdapter(vocabAdapter);
             }
 
@@ -171,7 +189,6 @@ public class VocabListActivity extends AppCompatActivity{
 
         if(words != null) {
             for (int i = 0; i < words.size(); i++) {
-              //  이게 안나
                 Toast.makeText(this, "New", Toast.LENGTH_SHORT).show();
                 System.out.println(words.get(0));
                 mDatabase.child("Users").child(uid).child("folder").child(MainActivity.curTab).child("memos")
