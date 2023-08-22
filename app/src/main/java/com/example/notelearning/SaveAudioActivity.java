@@ -56,6 +56,8 @@ public class SaveAudioActivity extends AppCompatActivity {
     public static String uid;
     public static HashMap<String, Folder> userData = new HashMap<>();
 
+    static  ArrayList<String> memoId = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,7 +85,7 @@ public class SaveAudioActivity extends AppCompatActivity {
 
         String mode = getIntent().getStringExtra("mode");
          // This will be the memo's key if in edit mode
-        ArrayList<String> memoId = getIntent().getStringArrayListExtra("memoID");
+        memoId = getIntent().getStringArrayListExtra("memoID");
 
 
         if ("edit".equals(mode)) {
@@ -113,7 +115,10 @@ public class SaveAudioActivity extends AppCompatActivity {
                     memoReference.setValue(newMemo);
                     // Update the note in the Home tab as well
                     mDatabase.child("Users").child(uid).child("folder").child("Home").child("memos").child(memoId.get(0)).setValue(newMemo);
-                    newMemoKey = NoteAdapter.noteKeys.get(NoteAdapter.selected.get(0));
+                    //newMemoKey = NoteAdapter.noteKeys.get(NoteAdapter.selected.get(0));
+                  //Not sure if this is right?
+
+                    newMemoKey = memoReference.getKey();
                 } else {
                     memoReference = mDatabase.child("Users").child(uid).child("folder").child(MainActivity.curTab).child("memos").push();
                     newMemoKey = memoReference.getKey();
@@ -274,6 +279,8 @@ public class SaveAudioActivity extends AppCompatActivity {
                         confirm.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
+                               deleteMemoFromFirebase(memoId.get(0));
+
                                 Intent intent = new Intent(getApplicationContext(), RecordActivity.class);
                                 startActivity(intent);
                             }
@@ -321,6 +328,13 @@ public class SaveAudioActivity extends AppCompatActivity {
                 save.setVisibility(View.VISIBLE);
             }
         });
+    }
+
+    private void deleteMemoFromFirebase(String memoId){
+            uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+            DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+            DatabaseReference memoReference = mDatabase.child("Users").child(uid).child("folder").child("Home").child("memos").child(memoId);
+            memoReference.removeValue();
     }
 
     private void fetchMemoFromFirebase(String memoId) {
