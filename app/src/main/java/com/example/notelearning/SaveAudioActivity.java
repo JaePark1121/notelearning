@@ -19,6 +19,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -306,10 +307,44 @@ public class SaveAudioActivity extends AppCompatActivity {
         saveAudioBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), RecordActivity.class);
-                startActivity(intent);
+
+                LayoutInflater inflater = (LayoutInflater)
+                        getSystemService(LAYOUT_INFLATER_SERVICE);
+                // popup_layout이 팝업창으로 불러올 화면
+                View popupView = inflater.inflate(R.layout.fragment_confirm_back, null);
+
+                // ConstraintLayout 부분은 어떤 Layout인지 따라 달라짐, LinearLayout이면 LinearLayout.~~ 이런식
+                int width = ConstraintLayout.LayoutParams.WRAP_CONTENT;
+                int height = ConstraintLayout.LayoutParams.WRAP_CONTENT;
+                //팝업창 바깥을 클릭했을 때 팝업 종료하기 기능, false면 꺼짐
+                boolean focusable = true;
+                final PopupWindow popupWindow = new PopupWindow(popupView, width, height, focusable);
+
+                // AnyViewLayout은 현재 메인 Layout에 있는 View중 아무거나 가져오면 됨, 토큰용
+                popupWindow.showAtLocation(menu, Gravity.CENTER, 300, -550);
+
+                Button confirmBack = (Button) popupView.findViewById(R.id.confirm_back);
+                confirmBack.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                        onBackPressed();
+
+                    }
+                });
+
+                Button cancel = (Button) popupView.findViewById(R.id.cancel_back);
+                cancel.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        popupWindow.dismiss();
+                    }
+                });
+
+
             }
         });
+
 
         titleView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -480,6 +515,11 @@ public class SaveAudioActivity extends AppCompatActivity {
             builder.show();
         }
 
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+    }
 
     private void onTaskComplete() {
         for (int i = 0; i < definitions.size(); i++) {

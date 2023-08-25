@@ -1,7 +1,5 @@
 package com.example.notelearning;
 
-import static com.example.notelearning.VocabAdapter.context;
-
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -130,10 +128,22 @@ public class VocabListActivity extends AppCompatActivity{
             }
         });
 
+        ImageView vocab_back = findViewById(R.id.vocab_back);
+
+        vocab_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+
 
         // Initialize RecyclerView and set its layout manager
         vocabRecyclerView = findViewById(R.id.vocabRecyclerView);
         vocabRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+
+
 
 
     }
@@ -169,6 +179,12 @@ public class VocabListActivity extends AppCompatActivity{
                 // Handle possible errors.
             }
         });
+    }
+
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
     }
 
 

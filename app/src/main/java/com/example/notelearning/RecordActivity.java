@@ -100,6 +100,14 @@ public class RecordActivity extends AppCompatActivity {
             }
         });
 
+        ImageView record_back = (ImageView) findViewById(R.id.record_back);
+        record_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+
 
 
 
@@ -260,7 +268,15 @@ public class RecordActivity extends AppCompatActivity {
         public void onEvent(int i, Bundle bundle) {
 
         }
+
+
     };
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+    }
+
 
 }
 

@@ -28,6 +28,7 @@ public class AddTabFragment extends Fragment {
             public void onClick(View view) {
                 String title = ((EditText)v.findViewById(R.id.new_tab_title)).getText().toString();
                 TabLayout tabLayout = (TabLayout) getActivity().findViewById(R.id.main_tabs);
+
                 if(!title.isEmpty()) {
                     tabLayout.addTab(tabLayout.newTab().setText(title));
                     DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
