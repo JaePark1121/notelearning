@@ -99,7 +99,6 @@ public class SummaryActivity extends AppCompatActivity {
         }
         database = FirebaseDatabase.getInstance();
 
-        ArrayList<String> memoId = getIntent().getStringArrayListExtra("memoID");
 
         save.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -113,10 +112,10 @@ public class SummaryActivity extends AppCompatActivity {
                 DatabaseReference memoReference;
                 System.out.println("CurrentTab: " + MainActivity.curTab);
 
-                    memoReference = mDatabase.child("Users").child(uid).child("folder").child(MainActivity.curTab).child("memos").child(memoId.get(0));
+                    memoReference = mDatabase.child("Users").child(uid).child("folder").child(MainActivity.curTab).child("memos").child(summary_memoId);
                     memoReference.child("summary").setValue(summary_content);
                     // Update the note in the Home tab as well
-                    mDatabase.child("Users").child(uid).child("folder").child("Home").child("memos").child(memoId.get(0)).child("summary").setValue(summary_content);
+                    mDatabase.child("Users").child(uid).child("folder").child("Home").child("memos").child(summary_memoId).child("summary").setValue(summary_content);
 
                     //Is this right?
                        // newMemoKey = memoId.get(0);
