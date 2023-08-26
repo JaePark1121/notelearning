@@ -19,7 +19,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -57,7 +56,7 @@ public class SaveAudioActivity extends AppCompatActivity {
     public static String uid;
     public static HashMap<String, Folder> userData = new HashMap<>();
 
-    static  ArrayList<String> memoId = new ArrayList<>();
+    public ArrayList<String> memoId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,20 +106,21 @@ public class SaveAudioActivity extends AppCompatActivity {
                 String content = contentView.getText().toString();
                 String date = dateView.getText().toString();
 
-                Memos newMemo = new Memos(date, title, content, false, "", null);
                 DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
                 DatabaseReference memoReference;
                 System.out.println("CurrentTab: " + MainActivity.curTab);
                 if ("edit".equals(mode)) {
                     memoReference = mDatabase.child("Users").child(uid).child("folder").child(MainActivity.curTab).child("memos").child(memoId.get(0));
-                    memoReference.setValue(newMemo);
+                    memoReference.child("title").setValue(title);
+                    memoReference.child("content").setValue(content);
                     // Update the note in the Home tab as well
-                    mDatabase.child("Users").child(uid).child("folder").child("Home").child("memos").child(memoId.get(0)).setValue(newMemo);
-                    //newMemoKey = NoteAdapter.noteKeys.get(NoteAdapter.selected.get(0));
-                  //Not sure if this is right?
+                    mDatabase.child("Users").child(uid).child("folder").child("Home").child("memos").child(memoId.get(0)).child("title").setValue(title);
+                    mDatabase.child("Users").child(uid).child("folder").child("Home").child("memos").child(memoId.get(0)).child("content").setValue(content);
 
-                    newMemoKey = memoReference.getKey();
+                    //Is this right?
+                    newMemoKey = memoId.get(0);
                 } else {
+                    Memos newMemo = new Memos(date, title, content, false, "", null);
                     memoReference = mDatabase.child("Users").child(uid).child("folder").child(MainActivity.curTab).child("memos").push();
                     newMemoKey = memoReference.getKey();
                     System.out.println();
@@ -178,84 +178,13 @@ public class SaveAudioActivity extends AppCompatActivity {
 
                 Button summary = (Button) popupView.findViewById(R.id.summary_button);
                 summary.setOnClickListener(new View.OnClickListener() {
+
                     @Override
                     public void onClick(View view) {
-                        AsyncTask.execute(new Runnable() {
-                            @Override
-                            public void run() {
-                                HttpURLConnection httpConn = null;
-                                String response = "Error";
 
-                                try {
-                                    URL url = new URL("https://api.openai.com/v1/chat/completions");
-
-                                    httpConn = (HttpURLConnection) url.openConnection();
-                                    httpConn.setRequestMethod("POST");
-                                    httpConn.setRequestProperty("Content-Type", "application/json");
-                                    httpConn.setRequestProperty("Authorization", "Bearer " + "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");
-                                    httpConn.setRequestProperty("OpenAI-Organization", "org-EXTJqre865s2Io0thmu6CYHX");
-                                    httpConn.setDoOutput(true);
-
-                                    String message = "Summarize this:" + contentView.getText().toString();
-                                    JSONObject payload = new JSONObject();
-
-                                    payload.put("model", "gpt-3.5-turbo");
-
-                                    JSONArray messagesArray = new JSONArray();
-                                    JSONObject messageObject = new JSONObject();
-                                    messageObject.put("role", "user");
-                                    messageObject.put("content", message);
-
-                                    messagesArray.put(messageObject);
-                                    payload.put("messages", messagesArray);
-
-                                    OutputStreamWriter writer = new OutputStreamWriter(httpConn.getOutputStream());
-                                    writer.write(payload.toString());
-                                    writer.flush();
-                                    writer.close();
-
-                                    int responseCode = httpConn.getResponseCode();
-                                    //System.out.println("Response Code: " + responseCode);
-
-                                    InputStream responseStream = responseCode / 100 == 2 ? httpConn.getInputStream() : httpConn.getErrorStream();
-                                    Scanner s = new Scanner(responseStream).useDelimiter("\\A");
-
-                                    response = s.hasNext() ? s.next() : "";
-                                    // System.out.println(response);
-
-                                    s.close();
-                                    responseStream.close();
-
-                                } catch (Exception e) {
-                                    e.printStackTrace();
-                                }
-
-                                try {
-                                    JSONObject jsonResponse = new JSONObject(response);
-                                    JSONArray choicesArray = jsonResponse.getJSONArray("choices");
-
-                                    if (choicesArray.length() > 0) {
-                                        JSONObject firstChoice = choicesArray.getJSONObject(0);
-                                        if (firstChoice.has("message")) {
-                                            JSONObject messageObject = firstChoice.getJSONObject("message");
-                                            String content = messageObject.getString("content");
-
-                                            Intent intent = new Intent(getApplicationContext(), SummaryActivity.class);
-                                            intent.putExtra("content", content);
-                                            startActivity(intent);
-                                        } else {
-                                            System.out.println("The 'message' object is not found.");
-                                        }
-                                    } else {
-                                        System.out.println("The 'choices' array is empty.");
-                                    }
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
-                                    System.out.println("Error parsing the JSON response.");
-                                }
-                            }
-                        });
+                        showSummaryChoiceDialog();
                     }
+
                 });
 
                 Button delete = (Button) popupView.findViewById(R.id.delete_button);
@@ -280,8 +209,6 @@ public class SaveAudioActivity extends AppCompatActivity {
                         confirm.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                               deleteMemoFromFirebase(memoId.get(0));
-
                                 Intent intent = new Intent(getApplicationContext(), RecordActivity.class);
                                 startActivity(intent);
                             }
@@ -307,44 +234,10 @@ public class SaveAudioActivity extends AppCompatActivity {
         saveAudioBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                LayoutInflater inflater = (LayoutInflater)
-                        getSystemService(LAYOUT_INFLATER_SERVICE);
-                // popup_layout이 팝업창으로 불러올 화면
-                View popupView = inflater.inflate(R.layout.fragment_confirm_back, null);
-
-                // ConstraintLayout 부분은 어떤 Layout인지 따라 달라짐, LinearLayout이면 LinearLayout.~~ 이런식
-                int width = ConstraintLayout.LayoutParams.WRAP_CONTENT;
-                int height = ConstraintLayout.LayoutParams.WRAP_CONTENT;
-                //팝업창 바깥을 클릭했을 때 팝업 종료하기 기능, false면 꺼짐
-                boolean focusable = true;
-                final PopupWindow popupWindow = new PopupWindow(popupView, width, height, focusable);
-
-                // AnyViewLayout은 현재 메인 Layout에 있는 View중 아무거나 가져오면 됨, 토큰용
-                popupWindow.showAtLocation(menu, Gravity.CENTER, 300, -550);
-
-                Button confirmBack = (Button) popupView.findViewById(R.id.confirm_back);
-                confirmBack.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-
-                        onBackPressed();
-
-                    }
-                });
-
-                Button cancel = (Button) popupView.findViewById(R.id.cancel_back);
-                cancel.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        popupWindow.dismiss();
-                    }
-                });
-
-
+                Intent intent = new Intent(getApplicationContext(), RecordActivity.class);
+                startActivity(intent);
             }
         });
-
 
         titleView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -363,13 +256,6 @@ public class SaveAudioActivity extends AppCompatActivity {
                 save.setVisibility(View.VISIBLE);
             }
         });
-    }
-
-    private void deleteMemoFromFirebase(String memoId){
-            uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-            DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
-            DatabaseReference memoReference = mDatabase.child("Users").child(uid).child("folder").child("Home").child("memos").child(memoId);
-            memoReference.removeValue();
     }
 
     private void fetchMemoFromFirebase(String memoId) {
@@ -395,6 +281,116 @@ public class SaveAudioActivity extends AppCompatActivity {
             }
         });
     }
+
+        private void showSummaryChoiceDialog () {
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(SaveAudioActivity.this); // Note the change here
+            builder.setTitle("Summary Options");
+
+            // Set up the buttons
+            builder.setPositiveButton("View Existing", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    Intent intent = new Intent(getApplicationContext(), SummaryActivity.class);
+                    intent.putExtra("mode_summary", "old_summary");
+                    intent.putExtra("mode_summary_save", "old_summary_save");
+                    intent.putStringArrayListExtra("memoID", memoId);
+
+                    startActivity(intent);
+                }
+            });
+
+            builder.setNegativeButton("Create New", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+
+
+            AsyncTask.execute(new Runnable() {
+                @Override
+                public void run() {
+                    HttpURLConnection httpConn = null;
+                    String response = "Error";
+
+                    try {
+                        URL url = new URL("https://api.openai.com/v1/chat/completions");
+
+                        httpConn = (HttpURLConnection) url.openConnection();
+                        httpConn.setRequestMethod("POST");
+                        httpConn.setRequestProperty("Content-Type", "application/json");
+                        httpConn.setRequestProperty("Authorization", "Bearer " + "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");
+                        httpConn.setRequestProperty("OpenAI-Organization", "org-EXTJqre865s2Io0thmu6CYHX");
+                        httpConn.setDoOutput(true);
+
+                        String message = "Summarize this:" + contentView.getText().toString();
+                        JSONObject payload = new JSONObject();
+
+                        payload.put("model", "gpt-3.5-turbo");
+
+                        JSONArray messagesArray = new JSONArray();
+                        JSONObject messageObject = new JSONObject();
+                        messageObject.put("role", "user");
+                        messageObject.put("content", message);
+
+                        messagesArray.put(messageObject);
+                        payload.put("messages", messagesArray);
+
+                        OutputStreamWriter writer = new OutputStreamWriter(httpConn.getOutputStream());
+                        writer.write(payload.toString());
+                        writer.flush();
+                        writer.close();
+
+                        int responseCode = httpConn.getResponseCode();
+                        //System.out.println("Response Code: " + responseCode);
+
+                        InputStream responseStream = responseCode / 100 == 2 ? httpConn.getInputStream() : httpConn.getErrorStream();
+                        Scanner s = new Scanner(responseStream).useDelimiter("\\A");
+
+                        response = s.hasNext() ? s.next() : "";
+                        // System.out.println(response);
+
+                        s.close();
+                        responseStream.close();
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+                    try {
+                        JSONObject jsonResponse = new JSONObject(response);
+                        JSONArray choicesArray = jsonResponse.getJSONArray("choices");
+
+                        if (choicesArray.length() > 0) {
+                            JSONObject firstChoice = choicesArray.getJSONObject(0);
+                            if (firstChoice.has("message")) {
+                                JSONObject messageObject = firstChoice.getJSONObject("message");
+                                String content = messageObject.getString("content");
+
+                                Intent intent = new Intent(getApplicationContext(), SummaryActivity.class);
+                                intent.putExtra("mode_summary", "new_summary");
+                                intent.putStringArrayListExtra("memoID", memoId);
+                                intent.putExtra("content", content);
+                                startActivity(intent);
+                            } else {
+                                System.out.println("The 'message' object is not found.");
+                            }
+                        } else {
+                            System.out.println("The 'choices' array is empty.");
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                        System.out.println("Error parsing the JSON response.");
+                    }
+                }
+            });
+
+
+                }
+            });
+
+
+            builder.show();
+        }
+
 
         private void showVocabChoiceDialog () {
             AlertDialog.Builder builder = new AlertDialog.Builder(SaveAudioActivity.this); // Note the change here
@@ -515,11 +511,6 @@ public class SaveAudioActivity extends AppCompatActivity {
             builder.show();
         }
 
-
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-    }
 
     private void onTaskComplete() {
         for (int i = 0; i < definitions.size(); i++) {

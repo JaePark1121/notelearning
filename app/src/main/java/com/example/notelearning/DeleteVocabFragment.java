@@ -48,13 +48,13 @@ public class DeleteVocabFragment extends Fragment {
                                             for (DataSnapshot ds : snapshot.getChildren()) {
                                                 if (NoteAdapter.selectedMemoUIDs.contains(ds.getKey())) {
                                                     mDatabase.child("Users").child(MainActivity.uid).child("folder")
-                                                            .child(ChangeFolderAdapter.selectedFolderName).child("memos").child(ds.getKey()).child("vocablist").removeValue();
+                                                            .child(MainActivity.curTab).child("memos").child(ds.getKey())
+                                                            .child("vocablist").child(VocabListActivity.deleteWord).removeValue();
 
-                                                    ds.getRef().removeValue();
+
                                                 }
                                             }
 
-                                        cancel.callOnClick();
                                     }
 
                                     @Override
@@ -64,7 +64,7 @@ public class DeleteVocabFragment extends Fragment {
 
                                 }
                         );
-
+                cancel.callOnClick();
             }
         });
 

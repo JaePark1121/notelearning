@@ -50,6 +50,8 @@ public class VocabListActivity extends AppCompatActivity{
 
     public static DeleteVocabFragment newFragment;
 
+    public static String deleteWord;
+
 
 
 
@@ -70,8 +72,7 @@ public class VocabListActivity extends AppCompatActivity{
         currentUserUID = mAuth.getCurrentUser().getUid();
 
 
-        //memo id에는 두가지 종류... 첫번째는 recycler view에서 가져오는것-notekeys 쓰면됨
-        //두번째는 새로운 노트를 만들었을때... 그러면 save audio activity에서 가져와야됨
+
 
         String mode = getIntent().getStringExtra("mode_vocab");
         String mode_save = getIntent().getStringExtra("mode_vocab_save");
@@ -84,9 +85,13 @@ public class VocabListActivity extends AppCompatActivity{
             System.out.println("New List:" + "" + memoId);
 
         } else if ("old_list".equals(mode)) {
-            memoUID = MainRecyclerFragment.memoUID;
-            uidIndex = MainRecyclerFragment.uidIndex;
-            memoId = memoUID.get(uidIndex);
+            if("old_list_save".equals(mode_save)){
+                memoId = SaveAudioActivity.newMemoKey;
+            }
+            else {
+                memoId = getIntent().getStringExtra("memoUID");
+                uidIndex = MainRecyclerFragment.uidIndex;
+            }
         }
         database = FirebaseDatabase.getInstance();
 
@@ -104,6 +109,9 @@ public class VocabListActivity extends AppCompatActivity{
                     .child("vocablist");
             fetchVocabFromFirebase();
         }
+
+
+
 
 
 
@@ -182,10 +190,6 @@ public class VocabListActivity extends AppCompatActivity{
     }
 
 
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-    }
 
 
 
@@ -214,6 +218,15 @@ public class VocabListActivity extends AppCompatActivity{
                         .child(memoId).child("vocablist").child(words.get(i)).setValue(definitions.get(i));
             }
         }
+    }
+
+
+
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+
     }
 
 

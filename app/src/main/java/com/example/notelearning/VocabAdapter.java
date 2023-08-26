@@ -61,7 +61,9 @@ public class VocabAdapter extends RecyclerView.Adapter<VocabAdapter.ViewHolder>{
                 @Override
                 public void onClick(View view) {
                     if (mListener != null) {
+                        VocabListActivity.deleteWord = vocab.getText().toString();
                         mListener.onDeleteButtonClick();
+
                     }
                 }
             });

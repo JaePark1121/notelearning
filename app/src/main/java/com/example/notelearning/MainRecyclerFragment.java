@@ -69,8 +69,10 @@ public class MainRecyclerFragment extends Fragment{
                        System.out.println("Before:" + " " + memoUID.get(i));
                    }
                    System.out.println(memoUID.size());
+
                    uidIndex = memoUID.size()-1;
                     Intent intent = new Intent(getActivity(), VocabListActivity.class);
+                    intent.putExtra("memoUID", NoteAdapter.noteKeys.get(NoteAdapter.selected.get(0)));
 
                    intent.putExtra("mode_vocab", "old_list");
                   // memoUID.clear();
@@ -93,6 +95,14 @@ public class MainRecyclerFragment extends Fragment{
                     };
                     return true;
                 }
+               else if(itemId == R.id.summary){
+                   Intent intent = new Intent(getActivity(), SummaryActivity.class);
+
+                   intent.putExtra("mode_summary", "old_summary");
+
+                   startActivity(intent);
+                   return true;
+               }
                 else if (itemId == R.id.move_folder) {
                    ChangeFolderFragment changeFolderFragment = new ChangeFolderFragment();
                    FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
@@ -139,6 +149,7 @@ public class MainRecyclerFragment extends Fragment{
                 Intent intent = new Intent(getContext(), SaveAudioActivity.class);
                 ArrayList<String> memoUID1 = new ArrayList<>();
                 memoUID1.add(NoteAdapter.noteKeys.get(position));
+                uidIndex = 0;
                 intent.putExtra("memoID", memoUID1);
                 intent.putExtra("title",item.getTitle());
                 intent.putExtra("mode", "edit");
