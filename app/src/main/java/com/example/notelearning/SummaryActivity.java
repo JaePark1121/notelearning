@@ -36,6 +36,7 @@ public class SummaryActivity extends AppCompatActivity {
     static String uid;
 
     static String old_summary = "";
+    EditText summary;
 
 
 
@@ -53,11 +54,22 @@ public class SummaryActivity extends AppCompatActivity {
         currentUserUID = mAuth.getCurrentUser().getUid();
 
 
-        EditText summary = (EditText) findViewById(R.id.summary_notes);
+        summary = (EditText) findViewById(R.id.summary_notes);
 
         TextView save = (TextView) findViewById(R.id.summary_save);
 
         ImageView home = (ImageView) findViewById(R.id.summary_home);
+
+        ImageView menu = (ImageView) findViewById(R.id.summary_menu);
+
+        ImageView back = (ImageView) findViewById(R.id.summary_back);
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
         home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -66,13 +78,16 @@ public class SummaryActivity extends AppCompatActivity {
             }
         });
 
-
+        home.setVisibility(View.INVISIBLE);
+        save.setVisibility(View.VISIBLE);
+        menu.setVisibility(View.INVISIBLE);
 
         summary.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 home.setVisibility(View.INVISIBLE);
                 save.setVisibility(View.VISIBLE);
+                menu.setVisibility(View.INVISIBLE);
             }
         });
 
@@ -87,15 +102,22 @@ public class SummaryActivity extends AppCompatActivity {
             String memoKey = sharedPreferences.getString("latestMemoKey", null);
             summary.setText(content);
             summary_memoId = memoKey;
+            System.out.println("New Summary " + summary_memoId);
 
         } else if ("old_summary".equals(mode)) {
-            summary.setText(old_summary);
             if("old_summary_save".equals(mode_save)){
                 summary_memoId = SaveAudioActivity.newMemoKey;
+                System.out.println("Old Summary Save" + summary_memoId);
+
             }
             else {
                 summary_memoId = NoteAdapter.noteKeys.get(NoteAdapter.selected.get(0));
+                System.out.println("Old Summary" + summary_memoId);
+
             }
+        }
+        else{
+            System.out.println("No mode");
         }
         database = FirebaseDatabase.getInstance();
 
@@ -112,17 +134,22 @@ public class SummaryActivity extends AppCompatActivity {
                 DatabaseReference memoReference;
                 System.out.println("CurrentTab: " + MainActivity.curTab);
 
-                    memoReference = mDatabase.child("Users").child(uid).child("folder").child(MainActivity.curTab).child("memos").child(summary_memoId);
-                    memoReference.child("summary").setValue(summary_content);
-                    // Update the note in the Home tab as well
-                    mDatabase.child("Users").child(uid).child("folder").child("Home").child("memos").child(summary_memoId).child("summary").setValue(summary_content);
-
+                    if(MainActivity.curTab.equals("Home")){
+                        mDatabase.child("Users").child(uid).child("folder").child("Home").child("memos").child(summary_memoId).child("summary").setValue(summary_content);
+                    }
+                    else {
+                        memoReference = mDatabase.child("Users").child(uid).child("folder").child(MainActivity.curTab).child("memos").child(summary_memoId);
+                        memoReference.child("summary").setValue(summary_content);
+                        // Update the note in the Home tab as well
+                        mDatabase.child("Users").child(uid).child("folder").child("Home").child("memos").child(summary_memoId).child("summary").setValue(summary_content);
+                    }
                     //Is this right?
                        // newMemoKey = memoId.get(0);
 
 
                 save.setVisibility(View.INVISIBLE);
                 home.setVisibility(View.VISIBLE);
+                menu.setVisibility(View.VISIBLE);
             }
 
         });
@@ -139,6 +166,7 @@ public class SummaryActivity extends AppCompatActivity {
                     .child("memos")
                     .child(summary_memoId)
                     .child("summary");
+            System.out.println("Fetch: " + summary_memoId);
             fetchVocabFromFirebase();
         }
 
@@ -149,17 +177,29 @@ public class SummaryActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        fetchVocabFromFirebase();
+    }
+
     private void fetchVocabFromFirebase() {
-        summaryReference.addValueEventListener(new ValueEventListener() {
+        summaryReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 old_summary = dataSnapshot.getValue().toString();
+                summary.setText(old_summary);
+
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 // Handle possible errors.
             }
         });
+    }
+
+    public void onBackPressed(){
+        super.onBackPressed();
     }
 
 }

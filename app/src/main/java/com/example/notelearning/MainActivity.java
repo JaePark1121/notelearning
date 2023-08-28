@@ -31,11 +31,16 @@ public class MainActivity extends AppCompatActivity {
 
     private FragmentTransaction transaction3;
 
+    private FragmentTransaction transaction4;
+
+
 
     public static AddTabFragment newFragment;
     public static MainSearchFragment newFragment2;
 
     public static DeleteTabFragment newFragment3;
+
+    public static LogOutFragment newFragment4;
 
     public static String uid;
     public static String curTab=null;
@@ -87,6 +92,25 @@ public class MainActivity extends AppCompatActivity {
         ImageView home = (ImageView) findViewById(R.id.home_icon);
         ImageButton add = (ImageButton) findViewById(R.id.add_tab_btn);
         ImageView search = (ImageView) findViewById(R.id.search_icon);
+        ImageView logoutBtn = (ImageView) findViewById(R.id.LogoutBtn);
+
+        logoutBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                transaction4 = getSupportFragmentManager().beginTransaction();
+                newFragment4 = new LogOutFragment();
+                transaction4.add(R.id.LogoutContainer, newFragment4);
+                newFragment4.listener = new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        getSupportFragmentManager().beginTransaction().remove(newFragment4).commitAllowingStateLoss();
+                    }
+                };
+                transaction4.commit();
+
+            }
+        });
+
         home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -15,7 +15,6 @@
         android:background="@drawable/notebook_default"
         android:ems="10"
         android:importantForAutofill="no"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -24,14 +23,15 @@
 
     <Button
         android:id="@+id/change_folder_confirm"
-        android:layout_width="150dp"
+        android:layout_width="wrap_content"
         android:layout_height="40dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="40dp"
         android:backgroundTint="#3498DB"
         android:text="Delete"
         android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="@+id/change_folder_box"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.9"
+        app:layout_constraintStart_toStartOf="@+id/change_folder_box"
         app:layout_constraintTop_toBottomOf="@+id/change_folder_recycler" />
 
     <TextView
@@ -51,23 +51,22 @@
 
     <Button
         android:id="@+id/change_folder_cancel"
-        android:layout_width="150dp"
+        android:layout_width="wrap_content"
         android:layout_height="40dp"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="20dp"
         android:backgroundTint="#BEBEBE"
         android:text="Cancel"
         android:textSize="15sp"
-        app:layout_constraintEnd_toStartOf="@+id/change_folder_confirm"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/change_folder_box"
+        app:layout_constraintEnd_toEndOf="@+id/change_folder_box"
+        app:layout_constraintHorizontal_bias="0.1"
+        app:layout_constraintStart_toStartOf="@id/change_folder_box"
         app:layout_constraintTop_toBottomOf="@+id/change_folder_recycler" />
 
     <TextView
         android:id="@+id/change_folder_title"
         android:layout_width="300dp"
         android:layout_height="30dp"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="10dp"
         android:text="Change Folder"
         android:textAlignment="center"
         android:textColor="#000000"
@@ -82,10 +81,11 @@
         android:id="@+id/change_folder_recycler"
         android:layout_width="300dp"
         android:layout_height="150dp"
-        android:layout_marginTop="5dp"
+        app:layout_constraintBottom_toBottomOf="@+id/change_folder_box"
         app:layout_constraintEnd_toEndOf="@+id/change_folder_box"
-        app:layout_constraintHorizontal_bias="0.507"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="@+id/change_folder_box"
-        app:layout_constraintTop_toBottomOf="@+id/change_folder_subtitle" />
+        app:layout_constraintTop_toBottomOf="@+id/change_folder_subtitle"
+        app:layout_constraintVertical_bias="0.15" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

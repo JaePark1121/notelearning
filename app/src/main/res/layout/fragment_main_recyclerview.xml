@@ -10,7 +10,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/save_recyclerView"
         android:layout_width="411dp"
-        android:layout_height="420dp"
+        android:layout_height="600dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -19,14 +19,15 @@
         android:id="@+id/record_button_recycler"
         android:layout_width="80dp"
         android:layout_height="80dp"
-        android:layout_marginTop="425dp"
         android:clickable="true"
         android:src="@drawable/microphone"
         app:backgroundTint="#61dfe3"
         app:fabCustomSize="80dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/save_recyclerView"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.9"
         app:maxImageSize="50dp"
         app:tint="#EEE"
         tools:ignore="SpeakableTextPresentCheck" />
@@ -35,22 +36,19 @@
         android:id="@+id/toolbar"
         android:layout_width="411dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="450dp"
         android:background="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
 
-     />
+        app:layout_constraintRight_toRightOf="parent" />
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/child_fragment_container"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="150dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@+id/save_recyclerView" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

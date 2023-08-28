@@ -91,7 +91,7 @@
         android:layout_marginTop="20dp"
         android:importantForAccessibility="no"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.73"
+        app:layout_constraintHorizontal_bias="0.68"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/search" />
@@ -100,7 +100,7 @@
         android:id="@+id/home_icon"
         android:layout_width="30dp"
         android:layout_height="27dp"
-        android:layout_marginStart="30dp"
+        android:layout_marginStart="25dp"
         android:layout_marginTop="20dp"
         android:importantForAccessibility="no"
         app:layout_constraintStart_toEndOf="@+id/search_icon"
@@ -152,5 +152,25 @@
         app:layout_constraintEnd_toEndOf="@+id/new_tab_container"
         app:layout_constraintStart_toStartOf="@+id/new_tab_container"
         app:layout_constraintTop_toTopOf="@+id/main_page_toolbar" />
+
+    <ImageView
+        android:id="@+id/LogoutBtn"
+        android:layout_width="30dp"
+        android:layout_height="27dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintStart_toEndOf="@+id/home_icon"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/logout" />
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/LogoutContainer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.3" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

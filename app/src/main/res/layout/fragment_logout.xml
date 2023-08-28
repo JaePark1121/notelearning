@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/frameLayout3"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    tools:context=".ConfirmDeleteFragment" >
+
+    <TextView
+        android:id="@+id/confirm_logout_box"
+        android:layout_width="367dp"
+        android:layout_height="154dp"
+        android:background="@drawable/notebook_default"
+        android:ems="10"
+        android:importantForAutofill="no"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <TextView
+        android:id="@+id/confirm_logout_label"
+        android:layout_width="339dp"
+        android:layout_height="43dp"
+        android:layout_marginTop="36dp"
+        android:text="Are you sure you want to logout?"
+        android:textAlignment="center"
+        android:textColor="#000000"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/confirm_logout_box"
+        app:layout_constraintStart_toStartOf="@+id/confirm_logout_box"
+        app:layout_constraintTop_toTopOf="@+id/confirm_logout_box" />
+
+    <Button
+        android:id="@+id/logoutCancelBtn"
+        android:layout_width="145dp"
+        android:layout_height="39dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="20dp"
+        android:backgroundTint="#BEBEBE"
+        android:text="Cancel"
+        android:textSize="15sp"
+        app:layout_constraintStart_toStartOf="@+id/confirm_logout_box"
+        app:layout_constraintTop_toBottomOf="@+id/confirm_logout_label" />
+
+    <Button
+        android:id="@+id/logoutConfirmBtn"
+        android:layout_width="145dp"
+        android:layout_height="38dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="12dp"
+        android:backgroundTint="#3498DB"
+        android:text="Logout"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toEndOf="@+id/confirm_logout_box"
+        app:layout_constraintTop_toBottomOf="@+id/confirm_logout_label" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

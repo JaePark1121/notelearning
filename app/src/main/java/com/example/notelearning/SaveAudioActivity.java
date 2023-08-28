@@ -40,8 +40,16 @@ import java.util.HashMap;
 import java.util.Objects;
 import java.util.Scanner;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+
 
 public class SaveAudioActivity extends AppCompatActivity {
+
+    long mNow;
+    Date mDate;
+    SimpleDateFormat mFormat = new SimpleDateFormat("yyyy-MM-dd");
 
     public static EditText contentView;
     public static EditText titleView;
@@ -75,6 +83,7 @@ public class SaveAudioActivity extends AppCompatActivity {
         titleView = (EditText) findViewById(R.id.save_notebook_title);
         contentView = (EditText) findViewById(R.id.save_audio_notes);
         TextView dateView = (TextView) findViewById(R.id.save_notes_date);
+        dateView.setText(getTime());
 
         ImageView home = (ImageView) findViewById(R.id.saved_home2);
         ImageView menu = (ImageView) findViewById(R.id.saved_menu2);
@@ -111,11 +120,14 @@ public class SaveAudioActivity extends AppCompatActivity {
                 System.out.println("CurrentTab: " + MainActivity.curTab);
                 if ("edit".equals(mode)) {
                     memoReference = mDatabase.child("Users").child(uid).child("folder").child(MainActivity.curTab).child("memos").child(memoId.get(0));
+                    System.out.println("Edit mode: " + memoId.get(0));
                     memoReference.child("title").setValue(title);
                     memoReference.child("content").setValue(content);
                     // Update the note in the Home tab as well
                     mDatabase.child("Users").child(uid).child("folder").child("Home").child("memos").child(memoId.get(0)).child("title").setValue(title);
                     mDatabase.child("Users").child(uid).child("folder").child("Home").child("memos").child(memoId.get(0)).child("content").setValue(content);
+                    mDatabase.child("Users").child(uid).child("folder").child("Home").child("memos").child(memoId.get(0)).child("date").setValue(date);
+
 
                     //Is this right?
                     newMemoKey = memoId.get(0);
@@ -234,8 +246,7 @@ public class SaveAudioActivity extends AppCompatActivity {
         saveAudioBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), RecordActivity.class);
-                startActivity(intent);
+               onBackPressed();
             }
         });
 
@@ -257,6 +268,14 @@ public class SaveAudioActivity extends AppCompatActivity {
             }
         });
     }
+
+    private String getTime(){
+        mNow = System.currentTimeMillis();
+        mDate = new Date(mNow);
+        return mFormat.format(mDate);
+    }
+
+
 
     private void fetchMemoFromFirebase(String memoId) {
         uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
@@ -364,6 +383,12 @@ public class SaveAudioActivity extends AppCompatActivity {
                             if (firstChoice.has("message")) {
                                 JSONObject messageObject = firstChoice.getJSONObject("message");
                                 String content = messageObject.getString("content");
+
+                                SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
+                                SharedPreferences.Editor editor = sharedPreferences.edit();
+                                editor.putString("latestMemoKey", newMemoKey);
+                                editor.apply();
+
 
                                 Intent intent = new Intent(getApplicationContext(), SummaryActivity.class);
                                 intent.putExtra("mode_summary", "new_summary");
@@ -529,5 +554,9 @@ public class SaveAudioActivity extends AppCompatActivity {
         intent.putExtra("definitions", definitions);
         intent.putExtra("mode_vocab", "new_list");
         startActivity(intent);
+    }
+
+    public void onBackPressed(){
+        super.onBackPressed();
     }
 }
