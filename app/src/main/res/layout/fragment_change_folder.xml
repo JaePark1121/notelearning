@@ -15,10 +15,10 @@
         android:background="@drawable/notebook_default"
         android:ems="10"
         android:importantForAutofill="no"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         tools:ignore="SpeakableTextPresentCheck" />
 
     <Button
@@ -26,7 +26,7 @@
         android:layout_width="wrap_content"
         android:layout_height="40dp"
         android:backgroundTint="#3498DB"
-        android:text="Delete"
+        android:text="Confirm"
         android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="@+id/change_folder_box"
         app:layout_constraintEnd_toEndOf="parent"
@@ -79,7 +79,7 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/change_folder_recycler"
-        android:layout_width="300dp"
+        android:layout_width="350dp"
         android:layout_height="150dp"
         app:layout_constraintBottom_toBottomOf="@+id/change_folder_box"
         app:layout_constraintEnd_toEndOf="@+id/change_folder_box"

@@ -38,6 +38,8 @@ public class SummaryActivity extends AppCompatActivity {
     static String old_summary = "";
     EditText summary;
 
+    String firebaseMode = "";
+
 
 
     //OkHttpClient client;
@@ -101,18 +103,22 @@ public class SummaryActivity extends AppCompatActivity {
             SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
             String memoKey = sharedPreferences.getString("latestMemoKey", null);
             summary.setText(content);
+            System.out.println("New content " + content);
             summary_memoId = memoKey;
             System.out.println("New Summary " + summary_memoId);
+            firebaseMode = "new";
 
         } else if ("old_summary".equals(mode)) {
             if("old_summary_save".equals(mode_save)){
                 summary_memoId = SaveAudioActivity.newMemoKey;
                 System.out.println("Old Summary Save" + summary_memoId);
+                firebaseMode = "old";
 
             }
             else {
                 summary_memoId = NoteAdapter.noteKeys.get(NoteAdapter.selected.get(0));
                 System.out.println("Old Summary" + summary_memoId);
+                firebaseMode = "old2";
 
             }
         }
@@ -187,8 +193,10 @@ public class SummaryActivity extends AppCompatActivity {
         summaryReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                old_summary = dataSnapshot.getValue().toString();
-                summary.setText(old_summary);
+                if(!firebaseMode.equals("new")) {
+                    old_summary = dataSnapshot.getValue().toString();
+                    summary.setText(old_summary);
+                }
 
             }
             @Override

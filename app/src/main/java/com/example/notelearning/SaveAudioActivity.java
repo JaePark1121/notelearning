@@ -365,7 +365,7 @@ public class SaveAudioActivity extends AppCompatActivity {
                         Scanner s = new Scanner(responseStream).useDelimiter("\\A");
 
                         response = s.hasNext() ? s.next() : "";
-                        // System.out.println(response);
+                        System.out.println("My response:" + response);
 
                         s.close();
                         responseStream.close();
